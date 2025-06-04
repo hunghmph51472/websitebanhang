@@ -1,7 +1,7 @@
 <?php
 class Database {
     private static $host = 'localhost';
-    private static $dbName = 'db_duan1';
+    private static $dbName = 'webduan1';
     private static $username = 'root';
     private static $password = '';
     private static $conn = null;

@@ -8,15 +8,15 @@ class User {
         $this->db = Database::getConnection();
     }
 
-    public function register($username, $password, $is_admin = 0) {
+    public function register($name, $email, $password, $is_admin = 0) {
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->db->prepare("INSERT INTO users (username, password, is_admin) VALUES (?, ?, ?)");
-        return $stmt->execute([$username, $hash, $is_admin]);
+        $stmt = $this->db->prepare("INSERT INTO users (name, email, password, is_admin) VALUES (?, ?, ?, ?)");
+        return $stmt->execute([$name, $email, $hash, $is_admin]);
     }
 
-    public function login($username, $password) {
-        $stmt = $this->db->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->execute([$username]);
+    public function login($email, $password) {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($user && password_verify($password, $user['password'])) {
             return $user;
@@ -25,7 +25,7 @@ class User {
     }
 
     public function getAllUsers() {
-        $stmt = $this->db->query("SELECT id, username, is_admin FROM users");
+        $stmt = $this->db->query("SELECT id, name, email, is_admin FROM users");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
