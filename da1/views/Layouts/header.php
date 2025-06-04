@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
-    <title>Shop Quần Áo</title>
+    <title>Shop Điện thoại</title>
     <style>
         body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f5f5f5; }
         header, footer { background:#333; color:#fff; padding: 15px 20px; }
