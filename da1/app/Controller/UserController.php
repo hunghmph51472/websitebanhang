@@ -1,4 +1,5 @@
 <?php
+
 require_once 'app/Model/UserModel.php';
 
 class UserController {
@@ -13,35 +14,42 @@ class UserController {
     }
 
     public function register() {
-        $username = $_POST['username'] ?? '';
+        $name = $_POST['name'] ?? '';
+        $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        if ($username && $password) {
-            $success = $this->userModel->register($username, $password);
+        if ($name && $email && $password) {
+            $success = $this->userModel->register($name, $email, $password);
             if ($success) {
                 header("Location: ?action=login");
+                exit;
             } else {
-                echo "Đăng ký thất bại. Có thể username đã tồn tại.";
+                $error = "Đăng ký thất bại. Có thể email đã tồn tại.";
+                include 'views/user/register.php';
             }
         } else {
-            echo "Vui lòng nhập đầy đủ thông tin.";
+            $error = "Vui lòng nhập đầy đủ thông tin.";
+            include 'views/user/register.php';
         }
     }
 
     public function loginForm() {
+        $error = '';
         include 'views/user/login.php';
     }
 
     public function login() {
-        $username = $_POST['username'] ?? '';
+        $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        $user = $this->userModel->login($username, $password);
+        $user = $this->userModel->login($email, $password);
         if ($user) {
             $_SESSION['user'] = $user;
             header("Location: index.php");
+            exit;
         } else {
-            echo "Đăng nhập thất bại.";
+            $error = "Đăng nhập thất bại. Email hoặc mật khẩu không đúng.";
+            include 'views/user/login.php';
         }
     }
 

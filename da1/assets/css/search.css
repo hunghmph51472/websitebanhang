@@ -1,0 +1,50 @@
+#searchContainer {
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 50px; /* Adjust to fit your layout */
+    left: 0;
+    display: flex; /* Use flexbox to align elements inline */
+    align-items: center;
+    gap: 10px; /* Space between input and button */
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    border-radius: 4px;
+    z-index: 1000; /* Make sure it stays on top */
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* Style for the search input */
+#searchInput {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px; /* Adjust the width as needed */
+}
+
+/* Style for the search button */
+#searchButton {
+    padding: 10px 20px;
+    background-color: #ff6600; /* Button color */
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+#searchButton:hover {
+    background-color: #e55b00; /* Darker shade on hover */
+}
+
+/* Optional: style for the search icon */
+.product__item__pic .product__hover li a img {
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.product__item__pic .product__hover li a img:hover {
+    transform: scale(1.1); /* Enlarge icon on hover */
+}
