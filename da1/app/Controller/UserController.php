@@ -1,4 +1,5 @@
 <?php
+
 require_once 'app/Model/UserModel.php';
 
 class UserController {

@@ -23,7 +23,7 @@
     <nav>
         <a href="index.php?action=products">Trang chủ</a>
         <?php if(isset($_SESSION['user'])): ?>
-            Xin chào, <strong><?=htmlspecialchars($_SESSION['user']['username'])?></strong> |
+            Xin chào, <strong><?=htmlspecialchars($_SESSION['user']['name'] ?? $_SESSION['user']['email'] ?? 'User')?></strong>  |
             <a href="index.php?action=cart">Giỏ hàng</a> |
             <?php if($_SESSION['user']['is_admin']): ?>
                 <a href="index.php?action=admin_products">Quản lý sản phẩm</a> |

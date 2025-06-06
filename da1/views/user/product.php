@@ -1,8 +1,8 @@
 <?php include 'views/layouts/header.php'; ?>
 
 <div class="welcome">
-    <h1>Chào mừng đến với Shop Quần Áo</h1>
-    <p>Khám phá bộ sưu tập quần áo mới nhất của chúng tôi.</p>
+    <h1>Chào mừng đến với MUVN</h1>
+    
 </div>
 
 <div class="product-list">
@@ -10,7 +10,7 @@
         <?php foreach ($products as $product): ?>
             <div class="product-item">
                 <a href="index.php?action=product_detail&id=<?= $product['id'] ?>">
-                    <img src="<?= htmlspecialchars($product['image'] ?: 'https://via.placeholder.com/200x250?text=No+Image') ?>" alt="<?= htmlspecialchars($product['name']) ?>" />
+                    <img src="assets/images/product/<?= htmlspecialchars($product['image'] ?: 'no-image.png') ?>" alt="<?= htmlspecialchars($product['name']) ?>"/>
                     <div class="product-name"><?= htmlspecialchars($product['name']) ?></div>
                 </a>
                 <div class="product-price"><?= number_format($product['price'], 0, ',', '.') ?> đ</div>
