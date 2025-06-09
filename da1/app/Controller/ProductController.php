@@ -25,7 +25,7 @@ class ProductController {
             echo "Sản phẩm không tồn tại.";
             exit;
         }
-        include 'views/user/product_detail.php';
+        include 'views/user/products_detail.php';
     }
 
     // Admin pages below

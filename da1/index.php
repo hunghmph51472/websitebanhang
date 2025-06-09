@@ -71,6 +71,9 @@ switch ($action) {
     case 'remove_cart_item':
         $cartController->remove();
         break;
+        case 'checkout':
+        $cartController->checkout();
+        break;
     default:
         echo "Không tìm thấy trang.";
 }
