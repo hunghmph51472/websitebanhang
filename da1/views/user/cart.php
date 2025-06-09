@@ -102,10 +102,13 @@
                     <td colspan="2" style="color:#e53935;font-weight:700;"><?= number_format($total, 0, ',', '.') ?> đ</td>
                 </tr>
             </table>
-            <div class="cart-actions">
-                <button type="submit">Cập nhật giỏ hàng</button>
-                <!-- Thêm nút đặt hàng nếu muốn -->
-            </div>
+            <?php if (!empty($items)): ?>
+    <!-- ... bảng giỏ hàng ... -->
+    <div class="cart-actions">
+        <button type="submit">Cập nhật giỏ hàng</button>
+        <a href="index.php?action=checkout" class="btn" style="margin-left:10px;">Thanh toán</a>
+    </div>
+<?php endif; ?>
         </form>
     <?php endif; ?>
 </div>

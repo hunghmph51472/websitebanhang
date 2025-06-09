@@ -59,4 +59,49 @@ class CartController {
         }
         header("Location: ?action=cart");
     }
+    public function checkout() {
+    $this->checkLogin();
+    $user_id = $_SESSION['user']['id'];
+    $cart = $this->cartModel->getCartByUserId($user_id);
+    $items = $this->cartModel->getItems($cart['id']);
+
+    if (empty($items)) {
+        echo "Giỏ hàng trống, không thể thanh toán.";
+        return;
+    }
+
+    // Tính tổng tiền
+    $total = 0;
+    foreach ($items as $item) {
+        $total += $item['price'] * $item['quantity'];
+    }
+
+    // Tạo đơn hàng
+    $db = Database::getConnection();
+    $db->beginTransaction();
+    $stmt = $db->prepare("INSERT INTO orders (user_id, total) VALUES (?, ?)");
+    $stmt->execute([$user_id, $total]);
+    $order_id = $db->lastInsertId();
+
+    // Thêm từng sản phẩm vào order_items
+    $stmtItem = $db->prepare("INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
+    foreach ($items as $item) {
+        $stmtItem->execute([$order_id, $item['id'], $item['quantity'], $item['price']]);
+    }
+
+    // Xóa giỏ hàng sau khi đặt hàng
+    $db->prepare("DELETE FROM cart_items WHERE cart_id = ?")->execute([$cart['id']]);
+    $db->commit();
+
+    // Hiển thị thông báo thành công
+    include 'views/user/checkout_success.php';
+$items = array_filter($items, function($item) {
+    return !empty($item['id']);
+});
+if (empty($items)) {
+    echo "Giỏ hàng không có sản phẩm hợp lệ.";
+    return;
+}
+}
+
 }
