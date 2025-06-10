@@ -9,8 +9,8 @@ class Product {
     }
 
     // Lấy tất cả sản phẩm, mới nhất lên đầu
-    public function getAll() {
-        $stmt = $this->db->query("SELECT * FROM products ORDER BY created_at DESC");
+    public function getAll($order = 'ASC') {
+        $stmt = $this->db->query("SELECT * FROM products ORDER BY id $order");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

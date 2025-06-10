@@ -1,78 +1,112 @@
-
-<style>
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: #18191a;
-}
-.container, .main-content {
-    flex: 1 0 auto;
-}
-footer {
-    flex-shrink: 0;
-    width: 100%;
-    background: linear-gradient(90deg, #232526 60%, #414345 100%);
-    border-top: none;
-    color: #fff;
-    box-shadow: 0 -2px 12px rgba(0,0,0,0.12);
-    position: relative;
-    bottom: 0;
-    left: 0;
-    letter-spacing: 0.5px;
-    font-family: 'Roboto', sans-serif;
-}
-footer .footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 18px 0 10px 0;
-}
-footer .footer-logo {
-    font-size: 1.3em;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-footer .footer-logo svg {
-    vertical-align: middle;
-    filter: drop-shadow(0 0 2px #fff2);
-}
-footer .footer-desc {
-    font-size: 0.95em;
-    opacity: 0.92;
-    margin-bottom: 2px;
-    color: #b0b3b8;
-}
-footer .footer-copy {
-    font-size: 0.85em;
-    opacity: 0.7;
-    color: #b0b3b8;
-}
-</style>
-</div> <!-- end container -->
-<footer>
-    <div class="footer-content">
-        <div class="footer-logo">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 7h20M5 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7"/><path d="M9 17V7"/><path d="M15 17V7"/></svg>
-            Shop Điện Thoại MUVN
-        </div>
-        <div class="footer-desc">
-            Uy tín làm nên thương hiệu
-        </div>
-        <div class="footer-copy">
-            &copy; 2025 Shop Điện Thoại MUVN
+<!-- Footer Section Begin -->
+<footer class="footer" style="background-color:rgb(125, 5, 5);width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;">
+    <div class="container-fluid" style="max-width:100vw;padding:0 0;">
+        <div class="row" style="margin:0;align-items:center;">
+            <div class="col-lg-4 col-md-6 col-sm-7 d-flex align-items-center" style="height:100%;">
+                <div class="footer__about" style="width:100%;">
+                    <div class="footer__logo" style="display:inline-block;vertical-align:middle;">
+                        <a href="./index.php"><img src="" alt=""></a>
+                    </div>
+                    <span style="color: white; font-weight: 600; padding-left: 50px;  display:inline-block;vertical-align:middle;margin-left:10px;">
+                        Chào mừng bạn đến với MUVN SHOP nơi cung cấp quần áo chất lượng
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-5">
+                <div class="footer__widget">
+                    <h6 style="color: white; font-weight: 600;">ĐƯỜNG DẪN</h6>
+                    <ul>
+                        <li><a href="#" style="color: white; font-weight: 600;">Về chúng tôi</a></li>
+                        <li><a href="index.php?url=lien-he" style="color: white; ">Liên hệ</a></li>
+                        <li><a href="index.php?url=doi-tra" style="color: white;">Chính sách đổi trả</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <div class="footer__widget">
+                    <h6 style="color: white; font-weight: 600;">TÀI KHOẢN</h6>
+                    <ul>
+                        <li><a href="index.php?url=thong-tin-tai-khoan" style="color: white; ">Tài khoản của tôi</a></li>
+                        <li><a href="index.php?url=don-hang" style="color: white;">Theo dõi đơn hàng</a></li>
+                        <li><a href="#" style="color: white; font-weight: 600;">Thủ tục thanh toán</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8 col-sm-8">
+                <div class="footer__newslatter">
+                    <h6 style="color: white; font-weight: 600" ;>HỖ TRỢ THANH TOÁN</h6>
+                    <div class="footer__payment">
+                        <a href="#"><img src="public/img/payment/payment-1.png" alt=""></a>
+                        <a href="#"><img src="public/img/payment/payment-2.png" alt=""></a>
+                        <a href="#"><img src="public/img/payment/payment-3.png" alt=""></a>
+                        <a href="#"><img src="public/img/payment/payment-4.png" alt=""></a>
+                        <a href="#"><img src="public/img/payment/payment-5.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </footer>
+<!-- Footer Section End -->
+
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form action="tim-kiem" method="get" class="search-model-form">
+<input type="search" name="query" id="search-input" placeholder="TÌM KIẾM.....">
+        </form>
+    </div>
+</div>
+<!-- Search End -->
+
+<!-- Toatr -->
+<script>
+    $(document).ready(function() {
+        $("#toastr-success-top-right").on("click", function() {
+            toastr.success("1 sản phẩm đã thêm vào giỏ", "Thành công", {
+                closeButton: true,
+                debug: false,
+                newestOnTop: false,
+                progressBar: true,
+                positionClass: "toast-top-right",
+                preventDuplicates: false,
+                onclick: null,
+                showDuration: "300",
+                hideDuration: "1000",
+                timeOut: "5000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut"
+            });
+        });
+    });
+</script>
+
+<!-- Js Plugins -->
+<script src="public/js/jquery-3.3.1.min.js"></script>
+<script src="public/js/bootstrap.min.js"></script>
+<script src="public/js/jquery.magnific-popup.min.js"></script>
+<script src="public/js/jquery-ui.min.js"></script>
+<script src="public/js/mixitup.min.js"></script>
+<script src="public/js/jquery.countdown.min.js"></script>
+<script src="public/js/jquery.slicknav.js"></script>
+<script src="public/js/owl.carousel.min.js"></script>
+<script src="public/js/jquery.nicescroll.min.js"></script>
+<script src="public/js/main.js"></script>
+
+<!-- dialogflow -->
+<!-- <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+    intent="WELCOME"
+    chat-title="Chat"
+    agent-id="a111a74a-8334-4098-9636-0f1433d6fc97"
+    language-code="vi"
+></df-messenger> -->
+
+
 </body>
+
 </html>

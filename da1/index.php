@@ -4,6 +4,7 @@ session_start();
 require_once 'app/Controller/UserController.php';
 require_once 'app/Controller/ProductController.php';
 require_once 'app/Controller/CartController.php';
+require_once 'app/Model/OrderModel.php';
 
 $action = $_GET['action'] ?? 'products';
 
@@ -54,15 +55,13 @@ switch ($action) {
         break;
     case 'delete_product':
         $productController->delete();
-        break;
+    break;
     case 'cart':
         $cartController->view();
         break;
     case 'add_to_cart':
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $cartController->add();
-        }
-        break;
+    $cartController->add();
+    break;
     case 'update_cart':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cartController->update();
@@ -74,6 +73,22 @@ switch ($action) {
         case 'checkout':
         $cartController->checkout();
         break;
+        case 'order_status':
+    // Lấy id đơn hàng từ GET
+    $order_id = $_GET['id'] ?? null;
+    if ($order_id) {
+        // Giả sử bạn đã có $OrderModel
+        $OrderModel = new OrderModel();
+        $order_details = $OrderModel->getFullOrderInformation($order_id);
+        if ($order_details) {
+            include 'views/user/hoadon.php';
+        } else {
+            echo "Không tìm thấy đơn hàng.";
+        }
+    } else {
+        echo "ID đơn hàng không hợp lệ.";
+    }
+    break;
     default:
         echo "Không tìm thấy trang.";
 }
