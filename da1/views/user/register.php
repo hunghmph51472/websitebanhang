@@ -1,4 +1,4 @@
-<?php include 'views/layouts/header.php'; ?>
+<?php require_once 'menu.php'; ?>
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
 <style>
 body {

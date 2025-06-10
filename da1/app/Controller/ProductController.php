@@ -11,13 +11,13 @@ class ProductController {
 
     public function list() {
         $products = $this->productModel->getAll();
-        include './views/user/product.php';
+        include './views/user/home.php';
     }
 
     public function detail() {
         $id = $_GET['id'] ?? null;
         if (!$id) {
-            header("Location: ?action=products");
+            header("Location: ?action=home");
             exit;
         }
         $product = $this->productModel->getById($id);
@@ -31,14 +31,19 @@ class ProductController {
     // Admin pages below
 
     private function checkAdmin() {
-        if (!isset($_SESSION['user']) || $_SESSION['user']['is_admin'] != 1) {
-            die("Bạn không có quyền truy cập.");
-        }
+    if (!isset($_SESSION['user']) || $_SESSION['user']['is_admin'] != 1) {
+        echo '<div style="max-width:400px;margin:60px auto;padding:32px 24px;background:#fff;border-radius:10px;box-shadow:0 2px 16px rgba(0,0,0,0.08);text-align:center">';
+        echo '<div style="font-size:2.2rem;color:#e53935;margin-bottom:18px;"><i class="fa fa-ban"></i></div>';
+        echo '<div style="font-size:1.15rem;font-weight:600;color:#222;margin-bottom:18px;">Bạn không có quyền truy cập trang quản trị!</div>';
+        echo '<a href="index.php" style="display:inline-block;padding:10px 22px;background:#2196f3;color:#fff;border-radius:6px;text-decoration:none;font-weight:500;">Quay lại trang chủ</a>';
+        echo '</div>';
+        exit;
     }
+}
 
     public function adminList() {
         $this->checkAdmin();
-        $products = $this->productModel->getAll();
+        $products = $this->productModel->getAll('ASC');
         include 'views/admin/products.php';
     }
 
