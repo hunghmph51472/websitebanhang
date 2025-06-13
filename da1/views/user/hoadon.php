@@ -27,6 +27,7 @@ $date_formated = !empty($created_at) ? date('d/m/Y H:i:s', strtotime($created_at
 
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,7 +90,8 @@ $date_formated = !empty($created_at) ? date('d/m/Y H:i:s', strtotime($created_at
             margin-top: 10px;
         }
 
-        .product-table th, .product-table td {
+        .product-table th,
+        .product-table td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
@@ -113,7 +115,7 @@ $date_formated = !empty($created_at) ? date('d/m/Y H:i:s', strtotime($created_at
             font-size: 1.2em;
             margin-top: 10px;
         }
-        
+
         .print-btn {
             margin: 20px auto;
             display: block;
@@ -126,36 +128,40 @@ $date_formated = !empty($created_at) ? date('d/m/Y H:i:s', strtotime($created_at
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        
+
         .print-btn:hover {
             background-color: #45a049;
         }
+
         @media print {
-    /* Ẩn tất cả nội dung ngoài khung hóa đơn */
-    body * {
-        visibility: hidden;
-    }
 
-    /* Chỉ hiển thị nội dung bên trong khung hóa đơn */
-    .invoice-container, .invoice-container * {
-        visibility: visible;
-    }
+            /* Ẩn tất cả nội dung ngoài khung hóa đơn */
+            body * {
+                visibility: hidden;
+            }
 
-    /* Đảm bảo chỉ in khung hóa đơn */
-    .invoice-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-    }
-    
-    /* Ẩn nút in */
-    .print-btn {
-        display: none;
-    }
-}
+            /* Chỉ hiển thị nội dung bên trong khung hóa đơn */
+            .invoice-container,
+            .invoice-container * {
+                visibility: visible;
+            }
+
+            /* Đảm bảo chỉ in khung hóa đơn */
+            .invoice-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+
+            /* Ẩn nút in */
+            .print-btn {
+                display: none;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <div class="invoice-container">
@@ -213,11 +219,11 @@ $date_formated = !empty($created_at) ? date('d/m/Y H:i:s', strtotime($created_at
 
         <!-- Mã QR -->
         <div class="qr-code">
-    <img 
-        src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=<?= urlencode('https://'.$_SERVER['HTTP_HOST'].'/websitebanhang/da1/index.php?action=order_status&id='.$order_id) ?>" 
-        alt="QR Code" width="120" height="120">
-    <div style="font-size:0.9em;color:#888;margin-top:4px;">Quét để xem trạng thái đơn hàng</div>
-</div>
+            <img
+                src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=<?= urlencode('https://' . $_SERVER['HTTP_HOST'] . '/websitebanhang/da1/index.php?action=order_status&id=' . $order_id) ?>"
+                alt="QR Code" width="120" height="120">
+            <div style="font-size:0.9em;color:#888;margin-top:4px;">Quét để xem trạng thái đơn hàng</div>
+        </div>
 
         <!-- Tổng tiền -->
         <div class="total-section">
@@ -235,5 +241,6 @@ $date_formated = !empty($created_at) ? date('d/m/Y H:i:s', strtotime($created_at
     </div>
 
 </body>
+
 </html>
 <?php include 'views/layouts/footer.php'; ?>
