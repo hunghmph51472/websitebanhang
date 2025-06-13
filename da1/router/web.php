@@ -3,6 +3,7 @@ session_start();
 require_once 'controllers/UserController.php';
 require_once 'controllers/ProductController.php';
 
+
 $userController = new UserController();
 $productController = new ProductController();
 
@@ -36,6 +37,12 @@ switch ($action) {
     case 'admin_products':
         $productController->adminList();
         break;
+    case 'admin_dashboard':
+        $productController->adminList();
+        break;  
+    case 'admin_users':
+        $userController->adminList();
+        break;
     case 'admin_add_product':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $productController->add();
@@ -66,4 +73,3 @@ switch ($action) {
         }
         break;
 }
-?>

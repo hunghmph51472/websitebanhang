@@ -105,7 +105,10 @@ ol {
 	padding: 0;
 	margin: 0;
 }
-
+nav a, .menu a, ul li a {
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
 /*---------------------
   Helper CSS
 -----------------------*/
