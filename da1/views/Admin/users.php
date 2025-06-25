@@ -24,26 +24,32 @@
                 <tbody>
                     <?php if (!empty($users)): ?>
                         <?php foreach ($users as $user): ?>
-                        <tr>
-                            <td><?= $user['id'] ?></td>
-                            <td><?= htmlspecialchars($user['name']) ?></td>
-                            <td><?= htmlspecialchars($user['email']) ?></td>
-                            <td>
-                                <?php if ($user['is_admin']): ?>
-                                    <span class="badge bg-danger">Admin</span>
-                                <?php else: ?>
-                                    <span class="badge bg-secondary">User</span>
-                                <?php endif; ?>
-                            </td>
-                            <td class="text-center">
-                                <a href="index.php?action=edit_user&id=<?= $user['id'] ?>" class="btn btn-info btn-sm me-1">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <a href="index.php?action=delete_user&id=<?= $user['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Xóa user này?')">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td><?= $user['id'] ?></td>
+                                <td><?= htmlspecialchars($user['name']) ?></td>
+                                <td><?= htmlspecialchars($user['email']) ?></td>
+                                <td>
+                                    <?php if (isset($user['role'])): ?>
+                                        <?php if ($user['role'] === 'admin'): ?>
+                                            <span class="badge bg-danger">Admin</span>
+                                        <?php elseif ($user['role'] === 'shipper'): ?>
+                                            <span class="badge bg-info text-dark">Shipper</span>
+                                        <?php else: ?>
+                                            <span class="badge bg-secondary">User</span>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <span class="badge bg-secondary">User</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="text-center">
+                                    <a href="index.php?action=edit_user&id=<?= $user['id'] ?>" class="btn btn-info btn-sm me-1">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="index.php?action=delete_user&id=<?= $user['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Xóa user này?')">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>

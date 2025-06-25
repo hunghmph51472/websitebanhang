@@ -8,9 +8,7 @@
     Đơn hàng của bạn sẽ được xử lý và giao sớm nhất.</p>
     <div style="margin-top:30px;">
         <a href="index.php" class="btn" style="margin-right:10px; background:#2196f3;">Về trang chủ</a>
-        <?php if (!empty($order_id)): ?>
-            <a href="index.php?action=order_status&id=<?= $order_id ?>" class="btn" style="background:#4caf50;">Theo dõi đơn hàng</a>
-        <?php endif; ?>
+        <a href="index.php?action=order_history" class="btn" style="background:#4caf50;">Theo dõi đơn hàng</a>
     </div>
 </div>
 <?php include 'views/layouts/footer.php'; ?>

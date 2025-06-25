@@ -64,6 +64,12 @@ class UserController
         }
         $user_id = $_SESSION['user']['id'];
         $orders = $this->userModel->getOrdersByUser($user_id);
+        require_once 'app/Model/OrderModel.php';
+        $orderModel = new OrderModel();
+        foreach ($orders as &$order) {
+            $order['items'] = $orderModel->getFullOrderInformation($order['id']);
+        }
+
         include 'views/user/order_history.php';
     }
     public function loginForm()
@@ -104,7 +110,7 @@ class UserController
         }
         include 'views/Admin/edit_users.php';
     }
-    public function delete()
+    public function deleteUser()
     {
         $this->checkAdmin();
         $id = $_GET['id'] ?? 0;
@@ -125,5 +131,15 @@ class UserController
         $is_admin = isset($_POST['is_admin']) ? 1 : 0;
         $this->userModel->update($id, $name, $email, $is_admin);
         header("Location: index.php?action=admin_users");
+    }
+
+    public function changeRole()
+    {
+        $this->checkAdmin();
+        $id = $_GET['id'] ?? 0;
+        $role = $_POST['role'] ?? 'user';
+        $this->userModel->updateRole($id, $role);
+        header("Location: index.php?action=admin_users");
+        exit;
     }
 }

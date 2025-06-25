@@ -74,4 +74,9 @@ class User
         $stmt = $this->db->prepare("DELETE FROM users WHERE id = ?");
         return $stmt->execute([$id]);
     }
+    public function updateRole($id, $role)
+{
+    $stmt = $this->db->prepare("UPDATE users SET role = ? WHERE id = ?");
+    return $stmt->execute([$role, $id]);
+}
 }

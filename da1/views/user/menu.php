@@ -78,24 +78,15 @@
                 <nav class="header__menu mobile-menu">
                     <ul>
                         <li><a href="?act=/">Home</a></li>
-                        <li><a href="?act=shop">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="dropdown">
-                                <li><a href="./about.html">About Us</a></li>
-                                <li><a href="./shop-details.html">Shop Details</a></li>
-                                <li><a href="index.php?action=cart">Shopping Cart</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="index.php?action=cart">Shopping Cart</a></li>
                         <li><a href="index.php?action=admin_dashboard">Admin</a></li>
                         <li><a href="index.php?action=order_history">Lịch sử đơn hàng</a></li>
+                        <li><a href="index.php?action=shipper_orders">Đơn giao hàng</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-3 col-md-3">
                 <div class="header__nav__option" style="position: relative;">
                     <a href="#" id="searchIcon" class="search-switch"><img src="./assets/images/icon/search.png" alt=""></a>
-                    <a href="#"><img src="./assets/images/icon/heart.png" alt=""></a>
                     <a href="?action=cart"><img src="./assets/images/icon/cart.png" alt=""></a>
                     <div class="user-dropdown" style="display:inline-block;position:relative;">
                         <a href="#" id="loginBtn" style="display:flex;align-items:center;gap:6px;">
@@ -115,8 +106,10 @@
                                     <i class="fa fa-user-circle" style="font-size:1.5em;color:#2196f3;"></i>
                                     <span style="font-weight:600;color:#00704A;">
                                         <?= htmlspecialchars($_SESSION['user']['name'] ?? 'Tài khoản') ?>
-                                        <?php if (!empty($_SESSION['user']['is_admin']) && $_SESSION['user']['is_admin'] == 1): ?>
+                                        <?php if (!empty($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'admin'): ?>
                                             <span style="color:#e53935;font-weight:600;"> (admin)</span>
+                                        <?php elseif (!empty($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'shipper'): ?>
+                                            <span style="color:#2196f3;font-weight:600;"> (shipper)</span>
                                         <?php endif; ?>
                                     </span>
                                 </div>

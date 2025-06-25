@@ -1,9 +1,10 @@
+
 <?php require_once 'views/user/menu.php'; ?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 
 <div class="container my-5">
-    <h2 class="mb-4"><i class="fa fa-history me-2 text-primary"></i>Lịch sử đơn hàng của bạn</h2>
+    <h2 class="mb-4"><i class="fa fa-history me-2 text-primary"></i>Xác nhận thanh toán đơn hàng</h2>
     <div class="card shadow-sm">
         <div class="card-body p-0">
             <table class="table table-hover align-middle mb-0">
@@ -13,6 +14,7 @@
                         <th>Sản phẩm</th>
                         <th>Tổng tiền</th>
                         <th>Trạng thái</th>
+                        <th>Thanh toán</th>
                         <th>Hành động</th>
                     </tr>
                 </thead>
@@ -46,25 +48,28 @@
                                     <span class="badge bg-<?= $badge ?>"><?= htmlspecialchars($order['status']) ?></span>
                                 </td>
                                 <td>
-                                    <?php if ($order['status'] == 'Chờ xử lý'): ?>
-                                        <form method="post" action="index.php?action=delete_order_user&id=<?= $order['id'] ?>" onsubmit="return confirm('Bạn có chắc muốn hủy đơn hàng này?');" class="d-inline">
-                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                <i class="fa fa-times"></i> Hủy đơn
+                                    <?php if (!empty($order['is_paid']) && $order['is_paid']): ?>
+                                        <span class="badge bg-success">Đã thanh toán</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-secondary">Chưa thanh toán</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if (empty($order['is_paid']) || !$order['is_paid']): ?>
+                                        <form method="post" action="index.php?action=shipper_paid&id=<?= $order['id'] ?>" onsubmit="return confirm('Xác nhận đơn hàng này đã thanh toán?');" class="d-inline">
+                                            <button type="submit" class="btn btn-success btn-sm">
+                                                <i class="fa fa-check"></i> Xác nhận đã thanh toán
                                             </button>
                                         </form>
-                                    <?php elseif ($order['status'] == 'Đang giao' || $order['status'] == 'Đã giao'): ?>
-                                        <button class="btn btn-secondary btn-sm" disabled>
-                                            <i class="fa fa-ban"></i> Không thể hủy
-                                        </button>
-                                    <?php elseif ($order['status'] == 'Đã hủy'): ?>
-                                        <span class="text-muted">Đã hủy</span>
+                                    <?php else: ?>
+                                        <span class="text-muted">Đã xác nhận</span>
                                     <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5" class="text-center text-muted">Bạn chưa có đơn hàng nào.</td>
+                            <td colspan="6" class="text-center text-muted">Không có đơn hàng nào.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

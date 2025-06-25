@@ -29,8 +29,8 @@ switch ($action) {
         }
         break;
     case 'order_history':
-    $userController->orderHistory();
-    break;
+        $userController->orderHistory();
+        break;
     // Quản lý người dùng
     case 'edit_user':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -40,7 +40,7 @@ switch ($action) {
         }
         break;
     case 'delete_user':
-        $userController->delete();
+        $userController->deleteUser();
         break;
     case 'edit_order':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -48,9 +48,6 @@ switch ($action) {
         } else {
             $productController->editOrderForm();
         }
-        break;
-    case 'delete_order':
-        $productController->deleteOrder();
         break;
     case 'products':
         $productController->list();
@@ -78,8 +75,8 @@ switch ($action) {
         $productController->orders();
         break;
     case 'change_order_status':
-    $productController->changeOrderStatus();
-    break;
+        $productController->changeOrderStatus();
+        break;
     // Quản lý sản phẩm
     case 'add_product':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -132,6 +129,23 @@ switch ($action) {
             echo "ID đơn hàng không hợp lệ.";
         }
         break;
+    case 'delete_order_user':
+        $productController->deleteOrderUser();
+        break;
+    case 'delete_order_admin':
+        $productController->deleteOrderAdmin();
+        break;
+    case 'shipper_orders':
+        $productController->shipperOrders();
+        break;
+    case 'shipper_paid':
+        $productController->shipperPaid();
+        break;
+    case 'change_role':
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $userController->changeRole();
+    }
+    break;
     default:
         echo "Không tìm thấy trang.";
 }

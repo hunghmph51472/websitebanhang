@@ -68,8 +68,17 @@ class ProductController
     public function orders()
     {
         $this->checkAdmin();
+
         $this->orderModel->autoUpdateDeliveredOrders();
         $orders = $this->orderModel->getAll();
+
+        // Thêm đoạn này để lấy sản phẩm cho từng đơn hàng
+        require_once 'app/Model/OrderModel.php';
+        $orderModel = new OrderModel();
+        foreach ($orders as &$order) {
+            $order['items'] = $orderModel->getFullOrderInformation($order['id']);
+        }
+
         include 'views/Admin/orders.php';
     }
     public function addForm()
@@ -154,6 +163,7 @@ class ProductController
         header("Location: ?action=admin_products");
     }
 
+
     // Quản lý người dùng
     public function users()
     {
@@ -177,7 +187,30 @@ class ProductController
         }
         include 'views/Admin/edit_orders.php';
     }
-
+    public function deleteOrderAdmin()
+    {
+        if (!isset($_GET['id'])) {
+            header('Location: index.php?action=admin_orders');
+            exit;
+        }
+        require_once 'app/Model/OrderModel.php';
+        $orderModel = new OrderModel();
+        $orderModel->delete($_GET['id']);
+        header('Location: index.php?action=admin_orders');
+        exit;
+    }
+    public function deleteOrderUser()
+    {
+        if (!isset($_GET['id'])) {
+            header('Location: index.php?action=order_history');
+            exit;
+        }
+        require_once 'app/Model/OrderModel.php';
+        $orderModel = new OrderModel();
+        $orderModel->delete($_GET['id']);
+        header('Location: index.php?action=order_history');
+        exit;
+    }
     public function editOrder()
     {
         $this->checkAdmin();
@@ -188,13 +221,6 @@ class ProductController
         $this->orderModel->updateOrder($id, $customer_name, $total, $status);
         header("Location: index.php?action=admin_orders");
     }
-    public function deleteOrder()
-    {
-        $this->checkAdmin();
-        $id = $_GET['id'] ?? 0;
-        $this->orderModel->delete($id);
-        header("Location: index.php?action=admin_orders");
-    }
     public function changeOrderStatus()
     {
         $this->checkAdmin();
@@ -203,4 +229,36 @@ class ProductController
         $this->orderModel->updateStatus($id, $status);
         header("Location: index.php?action=admin_orders");
     }
+    private function checkShipper()
+    {
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'shipper') {
+            echo '<div style="max-width:400px;margin:60px auto;padding:32px 24px;background:#fff;border-radius:10px;box-shadow:0 2px 16px rgba(0,0,0,0.08);text-align:center">';
+            echo '<div style="font-size:2.2rem;color:#e53935;margin-bottom:18px;"><i class="fa fa-ban"></i></div>';
+            echo '<div style="font-size:1.15rem;font-weight:600;color:#222;margin-bottom:18px;">Bạn không có quyền truy cập trang!</div>';
+            echo '<a href="index.php" style="display:inline-block;padding:10px 22px;background:#2196f3;color:#fff;border-radius:6px;text-decoration:none;font-weight:500;">Quay lại trang chủ</a>';
+            echo '</div>';
+            exit;
+        }
+    }
+    public function shipperOrders()
+    {
+        $this->checkShipper();
+        // Lấy các đơn hàng đang giao
+        $orders = $this->orderModel->getOrdersByStatus('Đang giao');
+        foreach ($orders as &$order) {
+            $order['items'] = $this->orderModel->getFullOrderInformation($order['id']);
+        }
+        include 'views/user/orders.php';
+    }
+
+    public function shipperPaid()
+    {
+        $this->checkShipper();
+        $id = $_GET['id'] ?? 0;
+        $this->orderModel->updatePaid($id, 1); // cập nhật is_paid = 1
+        $this->orderModel->updateStatus($id, 'Đã giao');
+        header('Location: index.php?action=shipper_orders');
+        exit;
+    }
+    
 }
